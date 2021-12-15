@@ -3,11 +3,12 @@ const vehicleRutas = Router();
 const {vehicleModel} = require("../models/vehicleModel");
 
 //API GUARDAR NUEVO VEHICULO
-vehicleRutas.post("/nuevo", async function (req, res){
-    const {placa, color, fabricante, modelo} = req.body; //e.g {placa: "XXX000", color: "Rojo", fabricante: "Renault", modelo: "Logan 2018"}
-    const newVehicle = new vehicleModel({placa, color, fabricante, modelo});
+vehicleRutas.post("/nuevo", function (req, res){
+    const {placa, color, fabricante} = req.body; //e.g {placa: "XXX000", color: "Rojo", fabricante: "Renault", modelo: "Logan 2018"}
+    const newVehicle = new vehicleModel({ placa, color, fabricante });
+    console.log(req.body)
 
-    await newVehicle.save(function (error){
+    newVehicle.save(function (error){
         if (error){
             res.status(500).send({status:"error", msg:"ERROR: Vehículo no guardado", error});
             return false;
@@ -18,10 +19,11 @@ vehicleRutas.post("/nuevo", async function (req, res){
 });
 
 //API CONSULTAR VEHICULOS
-vehicleRutas.get("/mis_vehiculos", async function(req, res) {
+// async/await tira Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+vehicleRutas.get("/mis_vehiculos", function(req, res) {
     try {
-        await vehicleModel.find({}, function (err, vehiculos){
-            return res.status(200).send(vehiculos);
+        vehicleModel.find({}, function (error, vehiculos){
+        return res.status(200).send(vehiculos);
         })
     } catch (error) {
         res.status(500).send({status:"error", msg:"ERROR"});

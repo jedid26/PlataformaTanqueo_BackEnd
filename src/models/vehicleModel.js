@@ -15,10 +15,6 @@ const vehicleSchema = new Schema({
     fabricante: {
         type: "string",
         required: true
-    },
-    modelo: {
-        type: "string",
-        required: true
     }
 });
 
