@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+//const bodyParser = require("body-parser");
 
 //Se pasan los poderes de express a la variable app
 const app = express();
@@ -11,6 +12,9 @@ const { vehicleRutas } = require("./src/routers/vehicleRutas");
 //Middlewares
 app.use(cors());
 app.use(express.json());
+//app.use(bodyParser.urlencoded({extended: false}));
+//app.use(bodyParser.json());
+//app.use(require('connect').);
 
 //APIs
 app.use("/vehiculos", vehicleRutas);
