@@ -2,11 +2,11 @@ const {Router} = require("express");
 const vehicleRutas = Router();
 const {vehicleModel} = require("../models/vehicleModel");
 
+
 //API GUARDAR NUEVO VEHICULO
 vehicleRutas.post("/nuevo", function (req, res){
     const {placa, color, fabricante} = req.body; //e.g {placa: "XXX000", color: "Rojo", fabricante: "Renault", modelo: "Logan 2018"}
     const newVehicle = new vehicleModel({ placa, color, fabricante });
-    console.log(req.body);
 
     newVehicle.save(function (error){
         if (error){
