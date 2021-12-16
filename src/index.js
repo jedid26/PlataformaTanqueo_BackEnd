@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 //Importación de rutas
-const { vehicleRutas } = require("./src/routers/vehicleRutas");
+const { vehicleRutas } = require("./routers/vehicleRutas");
 import UserRoutes from "./routers/user.routes" 
 
 //Se pasan los poderes de express a la variable app
