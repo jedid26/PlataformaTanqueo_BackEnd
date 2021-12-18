@@ -20,16 +20,16 @@ const facturaSchema = new Schema({
         required: true
     },
     fecha :{
-        type: "string",
-        required: true
+        type: "string"
     },
     pago: {
-        type: Schema.Types.Decimal128,
+        type: "Number",
         required: true
     },
     usuario : {
         type: Schema.ObjectId,
-        ref: "users"
+        ref: "users",
+        required: true
     }
 });
 

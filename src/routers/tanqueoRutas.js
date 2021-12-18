@@ -3,11 +3,17 @@ const tanqueoRutas = Router();
 const {facturaModel} = require("../models/facturaModel");
 import User from "../models/UserModel";
 
+/** LOGICA FACTURA MODELS Y TANQUEO
+ * FacturaModel y TanqueoRutas se unen así: 
+ * Una operación tanqueo generará una factura relacionado a UN UNICO USUARIO
+ * Todas las API de FACTURA y TANQUEO se encuentran aquí 
+ */
+
 //API BUSCAR USUARIO POR DOCUMENTO
 tanqueoRutas.get("/tanqueo", function(req, res) {
+    //JSON enviado por front, se consulta por documento (cc,ce,pp)
     try {
         User.findOne(req.body, function (err, data){
-            console.log(data)
             if(data !== null && data !== undefined) {
                 res.status(200).send({status:"ok", msg:"Usuario encontrado", data});
             } else {
@@ -21,10 +27,9 @@ tanqueoRutas.get("/tanqueo", function(req, res) {
 
 //API GENERAR FACTURA TANQUEO
 tanqueoRutas.post("/tanqueo", function(req, res) {
-    const {placa, cantidad_gas, tipo_gas, estacion, pago, id} = req.body;
+    //JSON enviado por front (usuario debe ser el ObjectId del usuario)
+    const {placa, cantidad_gas, tipo_gas, estacion, pago, usuario} = req.body;
     try {
-        User.findOne(id, function(err, usu){
-            const usuario = usu._id;
             const newFactura = new facturaModel({placa, cantidad_gas, tipo_gas, estacion, pago, usuario})
             newFactura.save(function (err) {
                 if(err){
@@ -34,10 +39,21 @@ tanqueoRutas.post("/tanqueo", function(req, res) {
                 }
                 res.status(200).send({status:"ok", msg:"Factura guardada"})
             })
-        });
     } catch (error) {
         res.status(500).send({status:"error", msg:"ERROR"});
     }
+})
+
+//API LISTAR FACTURAS
+tanqueoRutas.get("/listar/:id", function (req, res) {
+    try {
+        facturaModel.find({usuario:`${req.params.id}`}, function (err, data) {
+            res.status(200).send({status:"ok", msg:"Facturas encontradas", data})
+        })
+    } catch (error) {
+        res.status(500).send({status:"error", msg:"ERROR"})
+    }
+
 })
 
 
