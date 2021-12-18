@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 //Importación de rutas
+const {tanqueoRutas} = require("./routers/tanqueoRutas");
 const { vehicleRutas } = require("./routers/vehicleRutas");
 import UserRoutes from "./routers/user.routes" 
 
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //APIs
 app.use("/vehiculos", vehicleRutas);
+app.use(tanqueoRutas);
 app.use(UserRoutes);
 
 //Conexión de la base de datos

@@ -21,7 +21,7 @@ vehicleRutas.post("/nuevo", function (req, res){
 // async/await tira Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
 vehicleRutas.get("/mis_vehiculos", function(req, res) {
     try {
-        vehicleModel.find({}, function (error, vehiculos){
+        vehicleModel.find({}, function (err, vehiculos){
         return res.status(200).send({status:"ok", msg:"Vehículos encontrados", vehiculos});
         })
     } catch (error) {
@@ -30,31 +30,33 @@ vehicleRutas.get("/mis_vehiculos", function(req, res) {
 })
 
 //API OBTENER _id VEHICULO EDITAR/ELIMINAR
-
-vehicleRutas.get("/edit/:id", async function (req, res) {
-    let vehiculo = await vehicleModel.findById(req.params._id);
-    res.render('/edit_vehiculo',{vehiculo});
+vehicleRutas.get("/buscar/:id", function (req, res) {
+    try {
+        vehicleModel.findById(req.params.id, function (err, data) {
+        return res.status(200).send({status:"ok", msg:"vehículo encontrado", data})
+        })
+    } catch (error) {
+        res.status(500).send({status:"error", msg:"ERROR al buscar"});
+    }
 });
 
 //API EDITAR VEHICULO https://youtu.be/-bI0diefasA?t=6495
-vehicleRutas.put("/edit", async function (req, res) {
-    const {id, color} = req.body;
-
+vehicleRutas.put("/edit/:id", function (req, res) {
+    const {color} = req.body;
     try {
-        await vehicleModel.findByIdAndUpdate(id, {color});
-        return res.status(200).send({status:"ok", msg:"editado correctamente"})
+        vehicleModel.findByIdAndUpdate(req.params.id, {"color": `${color}`}, function (err, result) {
+            res.status(200).send({status:"ok", msg:"Editado con éxito"});
+        })
     } catch (error) {
         res.status(500).send({status:"error", msg:"ERROR al editar"});
     }
 });
-   
 
 //API ELIMINAR VEHICULO
 vehicleRutas.delete("/delete/:id", async function (req, res) {
-    const {id} = req.params.id;
     try {
-        await vehicleModel.findByIdAndRemove(id)
-        return res.status(200).send({status:"ok", msg:"eliminado correctamente"})
+        await vehicleModel.findByIdAndRemove(req.params.id)
+        return res.status(200).send({status:"ok", msg:"Eliminado correctamente"})
     } catch (error) {
         res.status(500).send({status:"error", msg:"ERROR al eliminar"});
     }

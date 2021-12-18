@@ -15,9 +15,12 @@ const vehicleSchema = new Schema({
     fabricante: {
         type: "string",
         required: true
+    },
+    usuario : {
+        type: Schema.ObjectId,
+        ref: "User"
     }
 });
 
 const vehicleModel = model("vehiculo", vehicleSchema);
-
 exports.vehicleModel = vehicleModel;
