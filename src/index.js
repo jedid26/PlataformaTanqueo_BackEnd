@@ -26,6 +26,7 @@ app.use("/tanqueo",tanqueoRutas);
 app.use(UserRoutes);
 
 //Conexión de la base de datos
+
 mongoose.connect(process.env.MONGO_URI)
     .then(res => console.log("Conectado a DB"))
     .catch(err => console.log("error; ", err))
