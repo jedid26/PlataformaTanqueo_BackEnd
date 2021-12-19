@@ -1,7 +1,6 @@
 const {Router} = require("express");
 const vehicleRutas = Router();
 const {vehicleModel} = require("../models/vehicleModel");
-import User from "../models/UserModel";
 
 //API GUARDAR NUEVO VEHICULO
 vehicleRutas.post("/nuevo", function (req, res){
@@ -19,9 +18,10 @@ vehicleRutas.post("/nuevo", function (req, res){
 //API CONSULTAR VEHICULOS
 // async/await tira Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
 vehicleRutas.get("/mis_vehiculos", function(req, res) {
-    const {usuario} = req.body;
+    //console.log(req.params.usuario);
+    //{usuario:`${req.params.usuario}`}
     try {
-        vehicleModel.find(usuario, function (err, vehiculos){
+        vehicleModel.find(function (err, vehiculos){
         return res.status(200).send({status:"ok", msg:"Vehículos encontrados", vehiculos});
         })
     } catch (error) {

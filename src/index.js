@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //APIs
 app.use("/vehiculos", vehicleRutas);
-app.use(tanqueoRutas);
+app.use("/tanqueo",tanqueoRutas);
 app.use(UserRoutes);
 
 //Conexión de la base de datos
