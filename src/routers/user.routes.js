@@ -47,7 +47,7 @@ router.post('/registrar', async (req, res) => {
 router.post('/ingresar', async (req, res) => {
     const { username, password } = req.body;
     try {
-        const userData = await User.find({username: username}, {name: 1, username: 1, password: 1})
+        const userData = await User.find({username: username}, {name: 1, username: 1, password: 1, rol: 1})
         if (!(userData.length > 0)) {
             return res.json({ err: "Datos Incorretos" })
         }
@@ -57,7 +57,7 @@ router.post('/ingresar', async (req, res) => {
         if (!sies) {
             return res.json({ err: "Datos Incorretos"})
         }
-        res.json({ msg: `Bienvedio ${userData[0]['name']}`, username: userData[0]['username'], id: userData[0]['_id'] });
+        res.json({ msg: `Bienvedio ${userData[0]['name']}`, username: userData[0]['username'], id: userData[0]['_id'], rol: userData[0]['rol'] });
     } catch (error) {
         res.json({ err: "Algo salio mal"})   
     }
