@@ -9,13 +9,14 @@ require("dotenv").config();
 const {tanqueoRutas} = require("./routers/tanqueoRutas");
 const { vehicleRutas } = require("./routers/vehicleRutas");
 import UserRoutes from "./routers/user.routes" 
+import PreciosRoutes from "./routers/precios.routes"
 
 //Se pasan los poderes de express a la variable app
 const app = express();
 
 //Middlewares
 app.use(cors());
-app.unsubscribe(morgan('dev'));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use("/vehiculos", vehicleRutas);
 app.use("/tanqueo",tanqueoRutas);
 app.use(UserRoutes);
+app.use(PreciosRoutes);
 
 //Conexión de la base de datos
 
