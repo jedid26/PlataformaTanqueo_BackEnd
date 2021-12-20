@@ -17,12 +17,11 @@ vehicleRutas.post("/nuevo", function (req, res){
 
 //API CONSULTAR VEHICULOS
 // async/await tira Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-vehicleRutas.get("/mis_vehiculos", function(req, res) {
-    //console.log(req.params.usuario);
-    //{usuario:`${req.params.usuario}`}
+vehicleRutas.get("/mis_vehiculos/:id", function(req, res) {
     try {
-        vehicleModel.find(function (err, vehiculos){
-        return res.status(200).send({status:"ok", msg:"Vehículos encontrados", vehiculos});
+        vehicleModel.find({usuario:`${req.params.id}`}, function (err, vehiculos){
+            if (vehiculos.length !== 0) res.status(200).send({status:"ok", msg:"Vehículos encontrados", vehiculos});
+            else res.status(200).send({status:"no", msg:"Usuario sin vehículos registrados", vehiculos})
         })
     } catch (error) {
         res.status(500).send({status:"error", msg:"ERROR"});
