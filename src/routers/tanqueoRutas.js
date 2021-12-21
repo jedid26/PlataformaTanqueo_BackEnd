@@ -10,10 +10,10 @@ import User from "../models/UserModel";
  */
 
 //API BUSCAR USUARIO POR DOCUMENTO
-tanqueoRutas.get("/tanqueo", function(req, res) {
-    //JSON enviado por front, se consulta por documento (cc,ce,pp)
+tanqueoRutas.get("/buscar/:id", function(req, res) {
+    //Documento en string por URI enviado por front, se consulta por documento (cc,ce,pp)
     try {
-        User.findOne(req.body, function (err, data){
+        User.findOne({idNumber:`${req.params.id}`}, function (err, data){
             if(data !== null && data !== undefined) {
                 res.status(200).send({status:"ok", msg:"Usuario encontrado", data});
             } else {
@@ -26,7 +26,7 @@ tanqueoRutas.get("/tanqueo", function(req, res) {
 });
 
 //API GENERAR FACTURA TANQUEO
-tanqueoRutas.post("/tanqueo", function(req, res) {
+tanqueoRutas.post("/tanquear", function(req, res) {
     //JSON enviado por front (usuario debe ser el ObjectId del usuario)
     const {placa, cantidad_gas, tipo_gas, estacion, pago, usuario} = req.body;
     try {

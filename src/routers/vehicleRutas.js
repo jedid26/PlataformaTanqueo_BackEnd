@@ -20,7 +20,7 @@ vehicleRutas.post("/nuevo", function (req, res){
 vehicleRutas.get("/mis_vehiculos/:id", function(req, res) {
     try {
         vehicleModel.find({usuario:`${req.params.id}`}, function (err, vehiculos){
-            if (vehiculos.length !== 0) res.status(200).send({status:"ok", msg:"Vehículos encontrados", vehiculos});
+            if (vehiculos !== undefined) res.status(200).send({status:"ok", msg:"Vehículos encontrados", vehiculos});
             else res.status(200).send({status:"no", msg:"Usuario sin vehículos registrados", vehiculos})
         })
     } catch (error) {
