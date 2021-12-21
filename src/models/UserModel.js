@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     email: {type: String, required: true},
     idNumber: {type: Number, required: true},
     password: {type: String, required: true},
-    rol: {type: String, default: "interno"}
+    rol: {type: String, default: "externo"}
 });
 
 module.exports = mongoose.model('User', UserSchema);
