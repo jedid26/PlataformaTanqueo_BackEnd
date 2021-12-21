@@ -1,4 +1,4 @@
-const {model, Schema, SchemaTypes} = require("mongoose");
+const {model, Schema} = require("mongoose");
 
 const facturaSchema = new Schema({
     placa: {

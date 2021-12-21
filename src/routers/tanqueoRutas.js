@@ -26,8 +26,9 @@ tanqueoRutas.get("/buscar/:id", function(req, res) {
 });
 
 //API GENERAR FACTURA TANQUEO
-tanqueoRutas.post("/tanquear", function(req, res) {
+tanqueoRutas.post("/factura", function(req, res) {
     //JSON enviado por front (usuario debe ser el ObjectId del usuario)
+    console.log(req.body);
     const {placa, cantidad_gas, tipo_gas, estacion, pago, usuario} = req.body;
     try {
             const newFactura = new facturaModel({placa, cantidad_gas, tipo_gas, estacion, pago, usuario})
