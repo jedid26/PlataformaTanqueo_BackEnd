@@ -2,33 +2,33 @@ const {model, Schema} = require("mongoose");
 
 const facturaSchema = new Schema({
     placa: {
-        type: "string",
+        type: String,
         required: true,
         minlength: 6,
         maxlength: 6 
     },
     cantidad_gas: {
-        type: "number",
+        type: Number,
         required: true
     },
     tipo_gas: {
-        type: "string",
+        type: String,
         required: true
     },
     estacion: {
-        type: "string",
+        type: String,
         required: true
     },
     fecha :{
-        type: "string"
+        type: String
     },
     pago: {
-        type: "Number",
+        type: Number,
         required: true
     },
     usuario : {
         type: Schema.ObjectId,
-        ref: "users",
+        ref: "User",
         required: true
     }
 });
@@ -36,7 +36,7 @@ const facturaSchema = new Schema({
 facturaSchema.pre("save", function (next){
     const time = Date.now();
     const today = new Date(time);
-    this.fecha = today.toUTCString();
+    this.fecha = today.toLocaleDateString("en-GB");
     next();
 });
 

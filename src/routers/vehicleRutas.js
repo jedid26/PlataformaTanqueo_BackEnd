@@ -2,7 +2,7 @@ const {Router} = require("express");
 const vehicleRutas = Router();
 const {vehicleModel} = require("../models/vehicleModel");
 
-//API GUARDAR NUEVO VEHICULO
+//ENDPOINT GUARDAR NUEVO VEHICULO
 vehicleRutas.post("/nuevo", function (req, res){
     const {placa, color, fabricante, usuario} = req.body; //e.g {placa: "XXX000", color: "Rojo", fabricante: "Renault", modelo: "Logan 2018"}
     const newVehicle = new vehicleModel({ placa, color, fabricante, usuario });
@@ -15,7 +15,7 @@ vehicleRutas.post("/nuevo", function (req, res){
     });
 });
 
-//API CONSULTAR VEHICULOS
+//ENDPOINT CONSULTAR VEHICULOS
 // async/await tira Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
 vehicleRutas.get("/mis_vehiculos/:id", function(req, res) {
     try {
@@ -28,7 +28,7 @@ vehicleRutas.get("/mis_vehiculos/:id", function(req, res) {
     }
 })
 
-//API OBTENER _id VEHICULO EDITAR/ELIMINAR
+//ENDPOINT OBTENER _id VEHICULO EDITAR/ELIMINAR
 vehicleRutas.get("/buscar/:id", function (req, res) {
     try {
         vehicleModel.findById(req.params.id, function (err, data) {
@@ -39,7 +39,7 @@ vehicleRutas.get("/buscar/:id", function (req, res) {
     }
 });
 
-//API EDITAR VEHICULO https://youtu.be/-bI0diefasA?t=6495
+//ENDPOINT EDITAR VEHICULO https://youtu.be/-bI0diefasA?t=6495
 vehicleRutas.put("/edit/:id", function (req, res) {
     const {color} = req.body;
     try {
@@ -51,7 +51,7 @@ vehicleRutas.put("/edit/:id", function (req, res) {
     }
 });
 
-//API ELIMINAR VEHICULO
+//ENDPOINT ELIMINAR VEHICULO
 vehicleRutas.delete("/delete/:id", async function (req, res) {
     try {
         await vehicleModel.findByIdAndRemove(req.params.id)

@@ -2,18 +2,18 @@ const {model, Schema} = require("mongoose");
 
 const vehicleSchema = new Schema({
     placa: {
-        type: "string",
+        type: String,
         unique: true,
         required: true,
         minlength: 6,
         maxlength: 6 
     },
     color: {
-        type: "string",
+        type: String,
         required: true
     },
     fabricante: {
-        type: "string",
+        type: String,
         required: true
     },
     usuario : {
